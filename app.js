@@ -11,3 +11,9 @@ app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
 
 // Set Static Path
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Index Route
+app.get('/', function(req,res){
+  res.render('index');
+});

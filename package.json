@@ -1,0 +1,11 @@
+{
+  "name": "socketChat",
+  "version": "0.0.1",
+  "description": "Real time chat app",
+  "dependencies": {
+    "express": "*",
+    "socket.io": "*",
+    "jade": "*"
+  },
+  "author": "Zach Mason"
+}

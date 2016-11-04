@@ -3,7 +3,7 @@ $(document).ready(function(){
   var socket = io.connect('http://localhhost:3000');
   var chatForm = $('#chatForm');
   var message = $('#chatInput');
-  var chatWindow = $('$chatWindow');
+  var chatWindow = $('#chatWindow');
   var userForm = $('#userForm');
   var username = $('#username');
   var users = $('#users');
@@ -17,9 +17,16 @@ $(document).ready(function(){
         $('#userFormWrap').hide();
         $('#mainWrap').show();
       } else {
-        
+        error.html('Username is already taken');
       }
     });
   });
-
+  // Dispay Usernames
+  socket.on('users', function(data){
+    var html = '';
+    for (var i = 0; i < data.length; i++){
+      html += '<li class="list-group-item>' + data[i] +'</li>"';
+    }
+    users.html(html);
+  });
 });

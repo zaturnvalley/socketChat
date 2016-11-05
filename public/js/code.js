@@ -1,6 +1,6 @@
 $(document).ready(function(){
   var messages = [];
-  var socket = io.connect('http://localhhost:3000');
+  var socket = io.connect('http://localhost:8000');
   var chatForm = $('#chatForm');
   var message = $('#chatInput');
   var chatWindow = $('#chatWindow');
@@ -21,11 +21,22 @@ $(document).ready(function(){
       }
     });
   });
-  // Dispay Usernames
+
+  chatForm.submit(function(e){
+    e.preventDefault();
+    socket.emit('send message', message.val());
+    message.val('');
+  });
+
+  socket.on('show message', function(data){
+    chatWindow.append('<strong>'+data.user+'</strong>: '+data.msg+'<br>');
+  });
+
+  // Display Usernames
   socket.on('users', function(data){
     var html = '';
-    for (var i = 0; i < data.length; i++){
-      html += '<li class="list-group-item>' + data[i] +'</li>"';
+    for(i = 0; i < data.length; i++){
+      html += '<li class="list-group-item">'+data[i]+'</li>';
     }
     users.html(html);
   });
